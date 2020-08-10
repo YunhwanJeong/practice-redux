@@ -1,18 +1,30 @@
+import { createStore } from 'redux';
+
 const plus = document.getElementById("plus");
 const minus = document.getElementById("minus");
 const number = document.getElementById("number");
 
-let count = 0;
+const PLUS = "PLUS";
+const MINUS = "MINUS";
 
-number.innerText = count;
+number.innerText = 0;
 
-const handleCount = ({ target }) => {
-  if (target === plus) {
-    number.innerText = count += 1;
-  } else if (target === minus) {
-    number.innerText = count -= 1;
+const countModifier = (count = 0, action) => {
+  switch (action.type) {
+    case PLUS:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
   }
 };
+const countStore = createStore(countModifier);
 
-plus.addEventListener('click', handleCount);
-minus.addEventListener('click', handleCount);
+const onChange = () => number.innerText = countStore.getState();
+countStore.subscribe(onChange);
+
+const handlePlus = () => countStore.dispatch({ type: PLUS });
+const handleMinus = () => countStore.dispatch({ type: MINUS });
+plus.addEventListener("click", handlePlus);
+minus.addEventListener("click", handleMinus);
