@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import Home from '../routes/Home';
 import Detail from '../routes/Detail';
-import store from '../store';
+import { store } from '../store';
 
 function App () {
     return (
