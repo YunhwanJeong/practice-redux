@@ -17,17 +17,27 @@ const reducer = (state = [], action) => {
       return state;
   }
 };
-
 const store = createStore(reducer);
+
+const dispatch = (type, { toDo, id }) => {
+  if (type === ADD_LIST) {
+    store.dispatch({
+      type: ADD_LIST,
+      text: toDo,
+      id: Date.now().toString()
+    });
+  } else if (type === DELETE_LIST) {
+    store.dispatch({
+      type: DELETE_LIST,
+      id,
+    });
+  }
+}
 
 const handleDeleteTodo = event => {
   const id = event.target.parentNode.id;
-  store.dispatch({
-    type: DELETE_LIST,
-    id,
-  });
+  dispatch(DELETE_LIST, { id });
 };
-
 const paintToDo = () => {
   const toDos = store.getState();
   todoList.innerHTML = "";
@@ -43,18 +53,12 @@ const paintToDo = () => {
     li.appendChild(button);
   });
 };
-
 store.subscribe(paintToDo);
 
 const handleAddTodo = event => {
   event.preventDefault();
   const toDo = input.value;
   input.value = "";
-  store.dispatch({
-    type: ADD_LIST,
-    text: toDo,
-    id: Date.now().toString()
-  });
+  dispatch(ADD_LIST, { toDo });
 };
-
 form.addEventListener("submit", handleAddTodo);
