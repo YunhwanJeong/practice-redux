@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 
-import { createAction } from '../store';
+import { addToDo } from '../store';
 import ToDo from '../components/ToDo';
 
-function Home({ toDoList, addTodo }) {
+function Home({ toDoList, dispatchTodo }) {
     const input = useRef();
     const onSubmit = event => {
         event.preventDefault();
-        addTodo(input.current.value);
+        dispatchTodo(input.current.value);
         input.current.value = "";
     };
 
@@ -32,7 +32,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addTodo: (text) => dispatch(createAction({ text }))
+        dispatchTodo: (text) => dispatch(addToDo({ text }))
     }
 };
 
