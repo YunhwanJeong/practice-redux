@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { deleteToDo } from '../store';
+import { remove } from '../store';
 
 function ToDo ({ text, dispatchToDoId, id }) {
     return (
@@ -19,7 +19,7 @@ function ToDo ({ text, dispatchToDoId, id }) {
 
 function mapDispatchToProps (dispatch, { id }) {
     return {
-        dispatchToDoId: () => dispatch(deleteToDo({ id }))
+        dispatchToDoId: () => dispatch(remove({ id }))
     }
 };
 
