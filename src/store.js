@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer, configureStore } from '@reduxjs/toolkit';
 
 const prepareTodo = ({ text, id }) => {
     return {
@@ -21,5 +21,5 @@ const reducer = createReducer([], {
     }
 });
 
-export const store = createStore(reducer);
+export const store = configureStore({ reducer });
 
